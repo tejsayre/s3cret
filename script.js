@@ -257,13 +257,7 @@ function showAlwaysSection() {
                         </div>
                         <h3>Hi, Baby</h3>
                         <p>
-                            Happy 3rd Monthsary sa’tin, baby ko! 💖 Ang bilis ng panahon, no? Parang kahapon lang nung nag-start tayo sa discord, pero tingnan mo tayo ngayon—mas strong, mas in-love, at mas determined kahit anong pagsubok ang dumating.<br><br>
-                            Alam kong hindi madali itong LDR natin. Minsan, ang hirap din kapag zero days. yung mga araw na miss na miss ka pero ‘di kita mahawakan, yung mga moments na ang bigat ng mundo pero ang layo ng yakap mo. Pero kahit ganun paman, alam mo ba na every struggle na ‘to, pinapalakas lang tayo? na kahit malayo, pinipili pa rin nating magmahalan araw-araw. aweee<br><br>
-                            At syempre, hindi mawawala yung mga happy-days, yung mga tawanang walang dahilan, yung mga kwentuhan hanggang madaling araw, yung mga random surprises na nagpapa-kilig pa rin kahit gaano pa tayo kalayo. yung mga sandaling ‘yun ang nagpapaalala sa’kin: worth it lahat ‘to, kasi ikaw yung kasama ko sa journey nato.<br><br>
-                            Kaya ngayon, as my monthsary gift sayo, ginawa ko 'tong isang cute website para sa ’tin! para kahit magkalayo tayo, may maliit na space tayo na puno ng memories natin ng mga struggles na nalampasan natin, ng mga happy days na pinagsamahan natin, at ng mga pangarap natin para sa future.<br><br>
-                            Salamat, baby, sa pagtitiis, sa pagmamahal, at sa pagiging my person kahit malayo. Hindi man perpekto ang mundo natin ngayon, pero basta’t tayo, alam kong kakayanin natin lahat.<br><br>
-                            Here’s to more months—and someday, a lifetime—of love, growth, and adventures together. I love you beyond words, beyond distance, beyond everything.<br><br>
-                            Forever yours,<br>
+                            Enjoy Browsing, Eto pala Gift ko Sayo nung 3rd Monthsarry natin, Stay Tuned nalang po here. 👀🫶
                             — Your, Poging Crush / Boyfriend
                         </p>
                         <button class="back-envelope-btn" id="backEnvelopeBtn" style="margin-top:18px;">← Back to Envelope</button>
