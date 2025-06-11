@@ -46,8 +46,8 @@ function unlockVault() {
 function showLetterPopup() {
     const letter = `Hi, Cutie Patootie
     
-Enjoy Browsing, Eto pala Gift ko Sayo nung 3rd Monthsarry natin, Stay Tuned nalang po here. 👀🫶
-                            — Your, Poging Crush / Boyfriend
+Enjoy Browsing Bellat, Eto pala Gift ko Sayo nung 3rd Monthsarry natin, Stay Tuned nalang po here. 👀🫶
+
 – Your, Poging Boyfriend`;
 
     const popup = document.getElementById('letterPopup');
