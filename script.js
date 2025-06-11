@@ -200,7 +200,7 @@ function showTimelineSection() {
         { name: "March",      img: "pictures/march.jpg",  msg: "Blooming together. 🌸" },
         { name: "April",      img: "pictures/april.jpg",  msg: "Overcoming the Struggles. 🫶" },
         { name: "May",        img: "pictures/may.jpg",  msg: "Growing together. 💕" },
-        { name: "June",       img: "always_jun.jpg",  msg: "Soon. 👀" },
+        { name: "June",       img: "always_jun.jpg",  msg: "Malapit na. 👀" },
         { name: "July",       img: "always_jul.jpg",  msg: "Soon. 👀" },
         { name: "August",     img: "always_aug.jpg",  msg: "Soon. 👀" },
         { name: "September",  img: "always_sep.jpg",  msg: "Soon. 👀" },
