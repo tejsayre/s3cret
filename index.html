@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <base href="https://tejsayre.github.io/s3cret/">
     <title>Secret</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico">
@@ -9,52 +8,56 @@
     <link rel="icon" type="image/png" href="pictures/pink-heart_1fa77.png">
 </head>
 <body>
-    <div class="heart-opening" id="heartOpening">
-        <div class="opening-heart"></div>
-        <div class="opening-message">Welcome to Our Secret Vault 💖</div>
-    </div>
-
-    <div class="vault-overlay" id="vault" style="display:none;">
-        <div class="vault-card simple-card">
-            <div class="vault-main">
-                <div class="vault-photo-frame landscape">
-                    <img src="pictures/IMG_4239.JPG" alt="Our Photo" id="vaultPhoto">
-                    <div class="photo-placeholder"></div>
-                    <div class="heart-particles"></div>
-                </div>
-                <div class="vault-content">
-                    <h2>Enter Our Secret PIN</h2>
-                    <div id="pinDisplay" class="pin-display">
-                        <span></span><span></span><span></span><span></span>
+    <header>
+        <div class="heart-opening" id="heartOpening">
+            <div class="opening-message">Welcome to Our Secret Vault 💖</div>
+        </div>
+    </header>
+    <main>
+        <section class="vault-overlay" id="vault" style="display:none;">
+            <div class="vault-card simple-card">
+                <div class="vault-main">
+                    <div class="vault-photo-frame landscape">
+                        <img src="pictures/IMG_4239.JPG" alt="Our Photo" id="vaultPhoto">
+                        <div class="photo-placeholder"></div>
+                        <div class="heart-particles"></div>
                     </div>
-                    <div class="keypad">
-                        <button onclick="pressKey('1')">1</button>
-                        <button onclick="pressKey('2')">2</button>
-                        <button onclick="pressKey('3')">3</button>
-                        <button onclick="pressKey('4')">4</button>
-                        <button onclick="pressKey('5')">5</button>
-                        <button onclick="pressKey('6')">6</button>
-                        <button onclick="pressKey('7')">7</button>
-                        <button onclick="pressKey('8')">8</button>
-                        <button onclick="pressKey('9')">9</button>
-                        <button onclick="pressKey('del')">⌫</button>
-                        <button onclick="pressKey('0')">0</button>
-                        <button class="enter-btn" onclick="unlockVault()">Enter</button>
+                    <div class="vault-content">
+                        <h2>Enter Our Secret PIN</h2>
+                        <div id="pinDisplay" class="pin-display">
+                            <span></span><span></span><span></span><span></span>
+                        </div>
+                        <div class="keypad">
+                            <button onclick="pressKey('1')">1</button>
+                            <button onclick="pressKey('2')">2</button>
+                            <button onclick="pressKey('3')">3</button>
+                            <button onclick="pressKey('4')">4</button>
+                            <button onclick="pressKey('5')">5</button>
+                            <button onclick="pressKey('6')">6</button>
+                            <button onclick="pressKey('7')">7</button>
+                            <button onclick="pressKey('8')">8</button>
+                            <button onclick="pressKey('9')">9</button>
+                            <button onclick="pressKey('del')">⌫</button>
+                            <button onclick="pressKey('0')">0</button>
+                            <button class="enter-btn" onclick="unlockVault()">Enter</button>
+                        </div>
+                        <div id="errorMsg" style="color: red; margin-top: 10px;"></div>
                     </div>
-                    <div id="errorMsg" style="color: red; margin-top: 10px;"></div>
                 </div>
             </div>
+        </section>
+        <div id="letterPopup" class="letter-popup" style="display:none;">
+            <div class="letter-popup-inner">
+                <div id="typedLetter" class="typed-letter"></div>
+                <button id="continueMenuBtn" class="continue-menu-btn">Continue</button>
+            </div>
         </div>
-    </div>
-
-    <div id="letterPopup" class="letter-popup" style="display:none;">
-        <div class="letter-popup-inner">
-            <div id="typedLetter" class="typed-letter"></div>
-            <button id="continueMenuBtn" class="continue-menu-btn">Continue</button>
-        </div>
-    </div>
-    <div id="vaultPopup" class="vault-popup"></div>
-
+        <!-- Romantic content will be injected here -->
+        <div id="romanticSection"></div>
+    </main>
+    <footer>
+        <!-- Optional: footer content -->
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>
