@@ -19,8 +19,14 @@ function pressKey(val) {
 }
 
 // Show popup notification
-function showVaultPopup(message, success = false) {
-    const popup = document.getElementById('vaultPopup');
+function createVaultPopup(message, success = false) {
+    let popup = document.getElementById('vaultPopup');
+    if (!popup) {
+        popup = document.createElement('div');
+        popup.id = 'vaultPopup';
+        popup.className = 'vault-popup';
+        document.body.appendChild(popup);
+    }
     popup.textContent = message;
     popup.style.background = success ? "#ffe6f2" : "#fff0f6";
     popup.classList.add('show');
@@ -30,13 +36,13 @@ function showVaultPopup(message, success = false) {
 // Unlock vault logic
 function unlockVault() {
     if (enteredPin === SECRET_PIN) {
-        showVaultPopup("Wah! You unlocked baby! 💖", true);
+        createVaultPopup("Wah! galing You unlocked baby! 💖", true);
         document.getElementById('vault').style.display = 'none';
         showLetterPopup();
         enteredPin = "";
         pressKey("");
     } else {
-        showVaultPopup("Oops! Wrong PIN, try again cutiepatootie! 💔", false);
+        createVaultPopup("Oops! Wrong PIN, try again po! 💔", false);
         enteredPin = "";
         pressKey("");
     }
@@ -44,36 +50,24 @@ function unlockVault() {
 
 // Letter popup with typewriter
 function showLetterPopup() {
-    const letter = `Hi, Cutie Patootie
-    
-Enjoy Browsing Bellat, Eto pala Gift ko Sayo nung 3rd Monthsarry natin, Stay Tuned nalang po here. 👀🫶
+    const letter = `Hi, my Dearest Cutie Patootie
 
-– Your, Poging Boyfriend`;
 
-    const popup = document.getElementById('letterPopup');
-    const typed = document.getElementById('typedLetter');
-    const btn = document.getElementById('continueMenuBtn');
-    popup.style.display = 'flex';
-    typed.innerHTML = '';
-    btn.style.display = 'none';
+Welcome to our special place! 🌸
 
-    let i = 0;
-    function typeWriter() {
-        if (i < letter.length) {
-            // Use innerHTML to render <br>
-            typed.innerHTML += letter[i] === "\n" ? "<br>" : letter[i];
-            i++;
-            setTimeout(typeWriter, 32);
-        } else {
-            btn.style.display = 'inline-block';
-        }
-    }
-    typeWriter();
+Kung nandito ka, ibig sabihin ay gusto mo talagang malaman ang laman ng vault na ito. Kaya naman, ginawa ko itong cute na website para sa’yo! Para kahit malayo tayo, may maliit tayong space na puno ng memories natin, mga struggles na nalampasan natin, at mga pangarap natin para sa future.
 
-    btn.onclick = function () {
-        popup.style.display = 'none';
+Alam kong hindi madali itong LDR natin. Minsan, ang hirap din kapag zero days, yung mga araw na miss na miss ka pero ‘di kita mahawakan, yung mga moments na ang bigat ng mundo pero ang layo ng yakap mo. Pero kahit ganun paman, alam mo ba na every struggle na ‘to, pinapalakas lang tayo? Na kahit malayo, pinipili pa rin nating magmahalan araw-araw. aweee
+
+ayun lang sana maging happy ka sa mga laman ng gawa ko na ito, at sana maging reminder ito sa atin na kahit anong mangyari, nandito lang ako para sa’yo. I love you so much, baby ko! 💖
+
+Forever yours,
+Your, Poging Crush / Boyfriend`;
+
+    createLetterPopup(letter, () => {
+        // Continue button callback
         showRomanticMenu();
-    };
+    });
 }
 
 // Menu logic
@@ -110,9 +104,23 @@ function showRomanticMenu() {
                 <div class="menu-card-title">How Long Together</div>
                 <div class="menu-card-desc">See how long we've been together!</div>
             </div>
+            <div class="menu-card" id="jarsCard">
+                <div class="menu-card-icon">🫙</div>
+                <div class="menu-card-title">Jars of Assurance</div>
+                <div class="menu-card-desc">Pick a note when you need comfort or assurance.</div>
+            </div>
         </div>
-        <div class="menu-note">With you, every day is a bouquet of happiness. 🌷</div>
-        <button class="exit-menu-btn" id="exitMenuBtn" style="margin-top:22px;">Exit</button>
+        <div class="menu-update-note" style="margin:32px 0 0 0; text-align:center;">
+    <div style="font-size:1.2rem;color:#d6336c;font-family:'Pacifico',cursive;">
+        More Love & Updates Coming Soon! 💞
+    </div>
+    <div style="font-size:1rem;color:#b983ff;">
+        Stay tuned baby, more surprises and memories are on the way! 👀
+    </div>
+</div>
+        <button class="exit-menu-btn" id="exitMenuBtn" style="margin-top:22px;">
+    <span style="font-size:1.1rem;">💗</span> Exit
+</button>
     `;
     document.body.appendChild(menu);
 
@@ -121,13 +129,50 @@ function showRomanticMenu() {
     document.getElementById('timelineCard').onclick = showTimelineSection;
     document.getElementById('alwaysCard').onclick = showAlwaysSection;
     document.getElementById('howlongCard').onclick = showHowLongSection;
+    document.getElementById('jarsCard').onclick = showJarsSection;
 
     // Exit button handler
     document.getElementById('exitMenuBtn').onclick = function() {
-        // Remove menu and show PIN card again
+        // Remove menu and section
         document.querySelectorAll('.romantic-menu-cards, .romantic-section').forEach(el => el.remove());
-        document.getElementById('vault').style.display = 'flex';
-        pressKey('');
+
+        // Show thank you overlay
+        const thankYou = document.createElement('div');
+        thankYou.className = 'romantic-section';
+        thankYou.style.display = 'flex';
+        thankYou.style.flexDirection = 'column';
+        thankYou.style.alignItems = 'center';
+        thankYou.style.justifyContent = 'center';
+        thankYou.style.minHeight = '100vh';
+        thankYou.innerHTML = `
+            <div style="background:linear-gradient(135deg,#fff0f6 80%,#ffe6f2 100%);border-radius:24px;padding:40px 32px;box-shadow:0 4px 24px #ffb6c1a0;max-width:400px;text-align:center;">
+                <div style="font-size:2.2rem;color:#d6336c;font-family:'Pacifico',cursive;margin-bottom:18px;">Thank you for using, baby! 💖</div>
+                <div style="font-size:1.1rem;color:#b983ff;margin-bottom:18px;">
+                    You are always loved and appreciated baby po!<br>
+                    <span style="font-size:1.4rem;">Stay tuned for more & surprises! 💌</span>
+                </div>
+                <button id="backToVaultBtn" style="
+                    background:#ffb6c1;
+                    color:#fff;
+                    font-family:'Pacifico',cursive;
+                    font-size:1.1rem;
+                    border:none;
+                    border-radius:12px;
+                    padding:12px 32px;
+                    margin-top:18px;
+                    box-shadow:0 2px 8px #ffb6c1a0;
+                    cursor:pointer;
+                    transition:background 0.2s;
+                ">← Back to Vault</button>
+            </div>
+        `;
+        document.body.appendChild(thankYou);
+
+        document.getElementById('backToVaultBtn').onclick = function() {
+            thankYou.remove();
+            document.getElementById('vault').style.display = 'flex';
+            pressKey('');
+        };
     };
 }
 
@@ -190,12 +235,12 @@ function showPiecesSection() {
 function showTimelineSection() {
     const months = [
         { name: "January",    img: "pictures/january.jpg",  msg: "A fresh start with you. ❤️" },
-        { name: "February",   img: "pictures/febrauary.jpg",  msg: "Our love month. 💘" },
+        { name: "February",   img: "pictures/feb.jpeg",  msg: "Our love month. 💘" },
         { name: "March",      img: "pictures/march.jpg",  msg: "Blooming together. 🌸" },
-        { name: "April",      img: "pictures/april.jpg",  msg: "Overcoming the Struggles. 🫶" },
+        { name: "April",      img: "pictures/apr.JPG",  msg: "Overcoming the Struggles. 🫶" },
         { name: "May",        img: "pictures/may.jpg",  msg: "Growing together. 💕" },
-        { name: "June",       img: "always_jun.jpg",  msg: "Malapit na. 👀" },
-        { name: "July",       img: "always_jul.jpg",  msg: "Soon. 👀" },
+        { name: "June",       img: "pictures/june.png",  msg: "Adik sa rolbox. 😭" },
+        { name: "July",       img: "always_jul.jpg",  msg: "Very Soon. 👀" },
         { name: "August",     img: "always_aug.jpg",  msg: "Soon. 👀" },
         { name: "September",  img: "always_sep.jpg",  msg: "Soon. 👀" },
         { name: "October",    img: "always_oct.jpg",  msg: "Soon. 👀" },
@@ -236,83 +281,182 @@ function showTimelineSection() {
     enableTimelineCardPopups(); // Enable popups for timeline cards
 }
 function showAlwaysSection() {
-    showSection(
-        "To My Always",
-        `
-        <div class="envelope-container" id="envelopeContainer">
-            <div class="envelope-fantasy" id="envelopeFantasy">
-                <div class="envelope-flap-fantasy"></div>
-                <div class="envelope-seal-fantasy">💖</div>
-                <div class="envelope-body-fantasy"></div>
-                <div class="envelope-card-fantasy" id="envelopeCardFantasy">
-                    <div class="envelope-card-inner">
-                        <div class="envelope-special-message" id="envelopeSpecialMessage">
-                            <span>💌 Surprise! 💌</span>
-                        </div>
-                        <h3>Hi, Baby</h3>
-                        <p>
+    // Remove any existing romantic sections or menus
+    document.querySelectorAll('.romantic-section, .romantic-menu-cards').forEach(el => el.remove());
 
-                        Hi, baby.
-
-Happy 3rd Monthsary sa’tin, baby ko! 💖 Ang bilis ng panahon, no? Parang kahapon lang nung nag-start tayo sa discord no, pero tingnan mo tayo ngayon—mas strong, mas in-love, at mas determined kahit anong pagsubok ang dumating.
-
-Alam kong hindi madali itong LDR natin. Minsan, ang hirap din kapag zero days. yung mga araw na miss na miss ka pero ‘di kita mahawakan, yung mga moments na ang bigat ng mundo pero ang layo ng yakap mo. Pero kahit ganun paman, alam mo ba na every struggle na ‘to, pinapalakas lang tayo? na kahit malayo, pinipili pa rin nating magmahalan araw-araw. aweee
-
-At syempre, hindi mawawala yung mga happy-days, yung mga tawanang walang dahilan, yung mga kwentuhan hanggang madaling araw, yung mga random surprises na nagpapa-kilig pa rin kahit gaano pa tayo kalayo. yung mga sandaling ‘yun ang nagpapaalala sa’kin: worth it lahat ‘to, kasi ikaw yung kasama ko sa journey nato.
-
-Kaya ngayon, as my monthsary gift sayo, ginawa ko 'tong isang cute website para sa ’tin! para kahit magkalayo tayo, may maliit na space tayo na puno ng memories natin ng mga struggles na nalampasan natin, ng mga happy days na pinagsamahan natin, at ng mga pangarap natin para sa future.
-
-Salamat, baby, sa pagtitiis, sa pagmamahal, at sa pagiging my person kahit malayo. Hindi man perpekto ang mundo natin ngayon, pero basta’t tayo, alam kong kakayanin natin lahat.
-
-Here’s to more months—and someday, a lifetime—of love, growth, and adventures together. I love you beyond words, beyond distance, beyond everything.
-
-Forever yours, <br>
-— Your, Poging Crush / Boyfriend
-                            
-                        </p>
-                        <button class="back-envelope-btn" id="backEnvelopeBtn" style="margin-top:18px;">← Back to Envelope</button>
-                    </div>
+    // Inject the section into the container
+    const container = document.getElementById('romanticSection');
+    container.innerHTML = `
+    <section class="romantic-section" style="width:100vw;max-width:100vw;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#fff0f6 60%,#ffe6f2 100%);padding:0;">
+        <h2 style="font-size:2.8rem;color:#d6336c;margin-bottom:32px;font-family:'Pacifico',cursive;">To My Always</h2>
+        <div class="envelope-container" id="envelopeContainer" style="width:100%;display:flex;justify-content:center;gap:64px;margin-bottom:32px;">
+            <div class="envelope-block">
+                <div class="love-envelope" id="loveEnvelope1" tabindex="0" aria-label="Open Monthsary Letter">
+                    <div class="envelope-flap"></div>
+                    <div class="envelope-body"></div>
+                    <div class="envelope-heart">💌</div>
                 </div>
+                <div class="envelope-label">3rd Monthsary Letter</div>
             </div>
-            <button class="open-envelope-btn" id="openEnvelopeBtn">Open Envelope 💌</button>
+            <div class="envelope-block">
+                <div class="love-envelope" id="loveEnvelope2" tabindex="0" aria-label="Open Promise Note">
+                    <div class="envelope-flap"></div>
+                    <div class="envelope-body"></div>
+                    <div class="envelope-heart">💖</div>
+                </div>
+                <div class="envelope-label">4th Monthsary Letter</div>
+            </div>
+            <div class="envelope-block">
+                <div class="love-envelope" id="loveEnvelope3" tabindex="0" aria-label="Open Special Note">
+                    <div class="envelope-flap"></div>
+                    <div class="envelope-body"></div>
+                    <div class="envelope-heart">💝</div>
+                </div>
+                <div class="envelope-label">5th Monthsary Letter</div>
+            </div>
         </div>
-        `
-    );
+        <!-- 4th Monthsary Letter -->
+        <div id="envelopeLetter1" class="envelope-letter-popup" style="display:none;">
+            <div class="envelope-letter-inner">
+                <div class="letter-card-decor">
+                    <span class="decor-heart decor-heart1">💗</span>
+                    <span class="decor-heart decor-heart2">🤍</span>
+                    <span class="decor-teddy decor-teddy1">🧸</span>
+                </div>
+                <h3>Hi, Baby</h3>
+                <div class="letter-message">
+                    Happy 3rd Monthsary sa’tin, baby ko! 💖 Ang bilis ng panahon, no? Parang kahapon lang nung nag-start tayo sa discord, pero tingnan mo tayo ngayon—mas strong, mas in-love, at mas determined kahit anong pagsubok ang dumating.<br><br>
+                    Alam kong hindi madali itong LDR natin. Minsan, ang hirap din kapag zero days, yung mga araw na miss na miss ka pero ‘di kita mahawakan, yung mga moments na ang bigat ng mundo pero ang layo ng yakap mo. Pero kahit ganun paman, alam mo ba na every struggle na ‘to, pinapalakas lang tayo? Na kahit malayo, pinipili pa rin nating magmahalan araw-araw. aweee<br><br>
+                    At syempre, hindi mawawala yung mga happy-days, yung mga tawanang walang dahilan, yung mga kwentuhan hanggang madaling araw, yung mga random surprises na nagpapa-kilig pa rin kahit gaano pa tayo kalayo. Yung mga sandaling ‘yun ang nagpapaalala sa’kin: worth it lahat ‘to, kasi ikaw yung kasama ko sa journey nato.<br><br>
+                    Kaya ngayon, as my monthsary gift sayo, ginawa ko 'tong isang cute website para sa ’tin! Para kahit magkalayo tayo, may maliit na space tayo na puno ng memories natin, ng mga struggles na nalampasan natin, ng mga happy days na pinagsamahan natin, at ng mga pangarap natin para sa future.<br><br>
+                    Salamat, baby, sa pagtitiis, sa pagmamahal, at sa pagiging my person kahit malayo. Hindi man perpekto ang mundo natin ngayon, pero basta’t tayo, alam kong kakayanin natin lahat.<br><br>
+                    Here’s to more months—and someday, a lifetime—of love, growth, and adventures together. I love you beyond words, beyond distance, beyond everything.<br><br>
+                    Forever yours,<br>
+                    — Your, Poging Crush / Boyfriend
+                </div>
+                <button class="close-letter-btn" id="closeLetterBtn1">← Back to Envelopes</button>
+            </div>
+        </div>
+        <!-- 5th Monthsary Letter -->
+        <div id="envelopeLetter2" class="envelope-letter-popup" style="display:none;">
+            <div class="envelope-letter-inner">
+                <div class="letter-card-decor">
+                    <span class="decor-heart decor-heart1">💗</span>
+                    <span class="decor-heart decor-heart2">🤍</span>
+                    <span class="decor-teddy decor-teddy2">🧸</span>
+                </div>
+                <h3>Hi my belle, my baby</h3>
+                <div class="letter-message">
+                    Hi my belle, my baby, awe
 
-    // Envelope open/close animation
-    const envelope = document.getElementById('envelopeFantasy');
-    const card = document.getElementById('envelopeCardFantasy');
-    const openBtn = document.getElementById('openEnvelopeBtn');
-    const backBtn = document.getElementById('backEnvelopeBtn');
-    const specialMsg = document.getElementById('envelopeSpecialMessage');
+Ang baho mo! 🤭 eme lang, baka mainis ka unang bungad palang, tska kakatapos lang din ng away natin nitong monthsarry natin, i know na late na ito message nato dahil sa mga nangyari 😓 baby miss na miss kona yung amoy mo kahit minsan sinasabi kong mabaho ka hahahahahahahah, so funny tawa ka dapat 😝<br> <br>
 
-    if (openBtn) {
-        openBtn.onclick = function () {
-            envelope.classList.add('open');
+Happy 4th Monthsarry sa’tin ganda. grabe no? ang bilis pero ang dami na rin nating pinagdaanan hanggang ngayon akala mo parang rollercoaster lang minsan may sobrang saya, tapos biglang may malalim na lungkot, tapos may mga away pa na akala natin di doon tayo na matatapos pero wala din yung mga yun hangang salita lang. 😉🤙<br><br>
+
+baby, thankyou
+thank you, kasi kahit sa gitna ng sarang dami ng problema modin sa family, sa sarili mo, at sa mga iniisip mo is nandyan ka pa rin para sakin, alam kong minsan nahihirapan kana, nahohopeless, gustong sumuko din sa lahat, pero kahit ganun andyan ka pa rin for me ang galing-galing mo ang tapang mo sobra sobra brave girlfriend. 💪<br><br>
+
+thank you din kasi
+kahit ako mismo, minsan ako pa yung nagiging problema 😅 pag nagagalit ako, o nagkaka-misunderstanding tayo, ikaw pa yung lumalapit saakin mismo para ayusin, ikaw yung nagpapakumbaba, nage-explain din nang maayos, at sinasabihan mo palagi ako kung saan ako nagkamali. salamat sa’yo kasi tinutulungan mo akong maging mas mabuting tao at mas mabuting boyfriend sa’yo. kahit na di ako perfect, alam mo yan. minsan makulit, minsan matigas ulo, nag rorolbux lang mag-hapon 😓 pero dahil sayo, natututo ako dahil sayo, gusto kong maging better, everyday yeah <br><br>
+
+baby, sa gitna ng lahat ng laban natin, tandaan natin to:
+"God didn't bring us this far just to leave us now." Kahit sobrang bigat, "The Lord is close to the brokenhearted" (Psalm 34:18) nandito siya, kasama natin siya. sabi niya, "Come to me, all you who are weary and burdened, and I will give you rest" (Matthew 11:28) pahinga ka minsan, ganda, Ilapit mo lahat ng sakit at pagod kay God at ilapit mo din sakin. 💛 <br><br>
+i know baby na you feel like you're carrying so much. pero hindi ka nag-iisa, kasama mo ako, mag kasama tayo at kasama natin si God. "I can do all things through Christ who strengthens me" (Philippians 4:13) kaya natin to, baby together, and with Him.<br><br>
+Happy 4 months ulit, my strong, beautiful, amazing Belle, kahit minsan o palagi inaaway kita, pati habang ginagawa koto ngayon 😝 akala mo nag la-lazada pako pero kahapon pato, bali nag f-fill up ikaw ng form ngayon 🤪. i love you more baby than all the battles we've faced. I'm so grateful God gave me you to walk with, to grow with to love,  kahit sa gitna ng gulo.<br><br>
+And here's to us, to healing, to more growth, and to trusting God more every day. I'm holding your hand through it all. <br>
+                    — Your, Poging Boyfriend
+                </div>
+                <button class="close-letter-btn" id="closeLetterBtn2">← Back to Envelopes</button>
+            </div>
+        </div>
+        <!-- Romantic Letter Popup 3 -->
+        <div id="envelopeLetter3" class="envelope-letter-popup" style="display:none;">
+            <div class="envelope-letter-inner">
+                <div class="letter-card-decor">
+                    <span class="decor-heart decor-heart1">💗</span>
+                    <span class="decor-heart decor-heart2">🤍</span>
+                    <span class="decor-teddy decor-teddy1">🧸</span>
+                    <span class="decor-teddy decor-teddy2">🧸</span>
+                </div>
+                <h3>Hi, my Dearest Bellatotiepatootie!</h3>
+                <div class="letter-message">
+                    Happy 5th Monthsary, baby! 💖 Even though we’re far apart, every single day with you feels like a blessing. Alam kong hindi madali ang LDR sa totoo lang, and ang dami nating pinagdadaanan, mga away na hindi natin maiwasan, at mga gabing ang bigat ng pakiramdam kasi ang sakit ng na m-miss kita nyan syempre. Pero kahit gaano kahirap, alam kong kaya natin to. Because with you, even the impossible feels possible.<br><br>
+
+"I'm counting the days, how many days till I can see you again..." 🥺 Every sunrise, every sunset, hinihintay ko lang yung araw na makakasama na kita ulit, na mahahawakan, makakapiling baby. Kahit malayo, ramdam ko yung pagmamahal mo ang init, ang sincere, ang tunay. And because of that, I promise to keep fighting for us.<br><br>
+
+"You got me all, all my love, and you got me all in my feelings..." 💞 Ikaw lang ang nakakapagpabago ng mundo ko. Kahit anong problema, kahit anong pagsubok, bastat kasama kita (kahit sa messages or video call lang), parang ang gaan-gaan ng lahat, You remind me of the lyrics in “Daisies” na new song ni Justin Bieber 😉<br><br>
+
+"You're the flower in the weeds, you're the love I really need." 🌼
+Ganyan ikaw sakin, baby yung liwanag sa gitna ng lahat ng kalungkutan at pagod, You teach me to keep going, to never give up, no matter how hard life gets. And I thank God every day for giving me someone as strong, as patient, and as loving as you. 🙏 <br><br>
+
+"You got me all, all in for you every time..." 💌 Walang araw na hindi kita pinipili, walang segundo na hindi kita iniisip. Ikaw yung "proof that dreams come true" kasi kahit sa panaginip ko lang dati ang magkaroon ng tulad mo, ngayon, ikaw na yung reality ko.<br><br>
+
+Baby, salamat sa lahat sa pagtitiis, sa pagmamahal, sa pagiging strong para sa’tin. I promise, no matter how many storms come our way, we’ll bloom like daisies strong, beautiful, and unshaken.<br><br>
+
+I love you more than words can say. Here’s to more months (and someday, forever) with you. 🌷<br><br>
+
+– Yours always, Boyfriend, Crush, BFF <br><br>
+
+(ps: kinig ikaw ng Daisies by Justin Bieber while reading this. para ramdam mo yung feeling ko for you 😉💖)
+
+                </div>
+                <button class="close-letter-btn" id="closeLetterBtn3">← Back to Envelopes</button>
+            </div>
+        </div>
+        <button class="back-menu-btn" id="backToMenuBtn" style="margin-top:24px;">← Back to Menu</button>
+    </section>
+    `;
+
+    // Envelope 1 logic
+    document.getElementById('loveEnvelope1').onclick = function () {
+        fadeToLetter('envelopeContainer', 'envelopeLetter1');
+    };
+    document.getElementById('closeLetterBtn1').onclick = function () {
+        fadeToLetter('envelopeLetter1', 'envelopeContainer');
+    };
+
+    // Envelope 2 logic
+    document.getElementById('loveEnvelope2').onclick = function () {
+        fadeToLetter('envelopeContainer', 'envelopeLetter2');
+    };
+    document.getElementById('closeLetterBtn2').onclick = function () {
+        fadeToLetter('envelopeLetter2', 'envelopeContainer');
+    };
+
+    // Envelope 3 logic
+    document.getElementById('loveEnvelope3').onclick = function () {
+        fadeToLetter('envelopeContainer', 'envelopeLetter3');
+    };
+    document.getElementById('closeLetterBtn3').onclick = function () {
+        fadeToLetter('envelopeLetter3', 'envelopeContainer');
+    };
+
+    // Back to menu logic
+    document.getElementById('backToMenuBtn').onclick = function () {
+        document.getElementById('romanticSection').innerHTML = '';
+        if (typeof showRomanticMenu === 'function') showRomanticMenu();
+    };
+
+    // Smooth fade transition
+    function fadeToLetter(hideId, showId) {
+        const hideEl = document.getElementById(hideId);
+        const showEl = document.getElementById(showId);
+        hideEl.style.opacity = 1;
+        hideEl.style.transition = 'opacity 0.4s';
+        hideEl.style.opacity = 0;
+        setTimeout(() => {
+            hideEl.style.display = 'none';
+            showEl.style.display = 'flex';
+            showEl.style.opacity = 0;
+            showEl.style.transition = 'opacity 0.4s';
             setTimeout(() => {
-                card.classList.add('show');
-                // Show the special message with animation
-                if (specialMsg) {
-                    specialMsg.classList.add('show');
-                }
-            }, 700);
-            openBtn.style.display = 'none';
-        };
-    }
-    if (backBtn) {
-        backBtn.onclick = function () {
-            card.classList.remove('show');
-            setTimeout(() => {
-                envelope.classList.remove('open');
-                openBtn.style.display = '';
-                // Hide the special message
-                if (specialMsg) {
-                    specialMsg.classList.remove('show');
-                }
-            }, 400);
-        };
+                showEl.style.opacity = 1;
+            }, 10);
+        }, 400);
     }
 }
+
+// How Long Together section logic
 function showHowLongSection() {
     showSection(
         "How Long Together",
@@ -527,3 +671,120 @@ function enableTimelineCardPopups() {
         });
     }, 100); // Wait for cards to render
 }
+
+// Add to your popup logic
+document.addEventListener('keydown', function(e) {
+    const popup = document.querySelector('.timeline-card-popup, .letter-popup');
+    if (popup && (e.key === "Escape" || e.key === "Esc")) {
+        popup.remove();
+    }
+});
+
+function createLetterPopup(letter, onContinue) {
+    let popup = document.getElementById('letterPopup');
+    if (!popup) {
+        popup = document.createElement('div');
+        popup.id = 'letterPopup';
+        popup.className = 'letter-popup';
+        document.body.appendChild(popup);
+    }
+    popup.innerHTML = `
+        <div class="letter-popup-inner">
+            <div id="typedLetter" class="typed-letter"></div>
+            <button id="continueMenuBtn" class="continue-menu-btn">Continue</button>
+        </div>
+    `;
+    popup.style.display = 'flex';
+    const typed = popup.querySelector('#typedLetter');
+    const btn = popup.querySelector('#continueMenuBtn');
+    // Show the full letter immediately (no typing animation)
+    typed.innerHTML = letter.replace(/\n/g, "<br>");
+    btn.style.display = 'inline-block';
+
+    btn.onclick = function () {
+        popup.style.display = 'none';
+        if (typeof onContinue === 'function') onContinue();
+    };
+}
+
+// Jars of Assurance section logic
+function showJarsSection() {
+    document.querySelectorAll('.romantic-menu-cards, .romantic-section').forEach(el => el.remove());
+
+    const notes = [
+        // Assurance
+        "No matter the distance, my love for you never fades. 💖",
+        "You are enough, always and forever.",
+        "I choose you every single day, even when we're apart.",
+        "You are my person, my home, my always.",
+        "Kahit malayo tayo, ikaw pa rin ang pipiliin ko araw-araw.",
+        "Hindi ka nag-iisa, mahal. Lagi akong nandito para sa'yo.",
+        // Missing you
+        "Missing you is my heart's way of reminding me how much I love you.",
+        "Every second apart is a second closer to our next hug.",
+        "If you ever feel alone, remember my heart is hugging you from afar.",
+        "Namimiss na kita sobra, pero tiis lang, konti na lang magkakasama rin tayo.",
+        "Kapag namimiss mo ako, isipin mo lang: miss din kita, sobra!",
+        // Overthinking/Sad
+        "It's okay to feel down sometimes. I'm always here for you.",
+        "You are stronger than your worries. I believe in you.",
+        "Take a deep breath, love. Everything will be okay.",
+        "You are never alone. I'm just a message away.",
+        "Pag pagod ka na, pahinga ka lang. Nandito lang ako, mahal.",
+        "Wag kang mag-alala, kakayanin natin lahat. Together tayo.",
+        // Alone
+        "Even on your loneliest days, you are deeply loved.",
+        "Whenever you feel alone, close your eyes and feel my love wrapping around you.",
+        "You light up my world, even from miles away.",
+        "You are my sunshine, even on cloudy days.",
+        "Kapag mag-isa ka, isipin mo: may isang taong nagmamahal sa'yo ng sobra.",
+        "Hindi ka nag-iisa, mahal. Yakap mula dito 💗"
+    ];
+
+    const section = document.createElement('div');
+    section.className = 'romantic-section';
+    section.innerHTML = `
+        <h2 style="font-size:2.4rem;color:#d6336c;margin-bottom:24px;font-family:'Pacifico',cursive;">
+            Jars of Assurance <span style="font-size:2rem;">🫙</span>
+        </h2>
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <div id="jarArea" style="margin-bottom:24px;">
+                <div id="jar" style="cursor:pointer; width:120px; height:160px; display:flex;align-items:flex-end;justify-content:center;">
+                    <img id="jarImg" src="https://static.vecteezy.com/system/resources/thumbnails/042/235/504/small_2x/isolated-cute-pink-glass-jar-with-a-happy-smile-in-transparent-background-png.png" alt="Jar of Assurance" style="width:100px;height:140px;object-fit:contain;cursor:pointer;display:block;margin:0 auto;">
+                </div>
+                <div style="text-align:center; color:#b983ff; font-size:1.1rem; margin-top:8px;">
+                    Tap the jar to pick a note!
+                </div>
+            </div>
+            <div id="noteArea" style="min-height:80px;display:flex;align-items:center;justify-content:center;"></div>
+        </div>
+        <button class="back-menu-btn" onclick="showRomanticMenu()" style="margin-top:32px;">← Back to Menu</button>
+    `;
+    document.body.appendChild(section);
+
+    // Jar click logic
+    document.getElementById('jar').onclick = function () {
+        const note = notes[Math.floor(Math.random() * notes.length)];
+        const noteArea = document.getElementById('noteArea');
+        noteArea.innerHTML = `
+            <div style="
+                background:linear-gradient(135deg,#fff0f6 80%,#ffe6f2 100%);
+                border-radius:18px;
+                border:2px solid #ffb6c1;
+                box-shadow:0 4px 16px #ffb6c1a0;
+                padding:22px 28px;
+                font-size:1.25rem;
+                color:#a86c3c;
+                font-family:'Pacifico',cursive;
+                animation:popNote 0.4s;
+                margin-top:8px;
+                text-align:center;
+                min-width:220px;
+                max-width:340px;
+            ">
+                ${note}
+            </div>
+        `;
+    };
+}
+window.showJarsSection = showJarsSection;
