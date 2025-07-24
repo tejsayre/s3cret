@@ -718,7 +718,7 @@ function showJarsSection() {
         "I choose you every single day, even when we're apart.",
         "You are my person, my home, my always.",
         "Kahit malayo tayo, ikaw pa rin ang pipiliin ko araw-araw.",
-        "Hindi ka nag-iisa, mahal. Lagi akong nandito para sa'yo.",
+        "Hindi ka nag-iisa, baby belle, Lagi akong nandito para sa'yo.",
         // Missing you
         "Missing you is my heart's way of reminding me how much I love you.",
         "Every second apart is a second closer to our next hug.",
@@ -730,7 +730,7 @@ function showJarsSection() {
         "You are stronger than your worries. I believe in you.",
         "Take a deep breath, love. Everything will be okay.",
         "You are never alone. I'm just a message away.",
-        "Pag pagod ka na, pahinga ka lang. Nandito lang ako, mahal.",
+        "Pag pagod ka na, pahinga ka lang. Nandito lang ako, baby.",
         "Wag kang mag-alala, kakayanin natin lahat. Together tayo.",
         // Alone
         "Even on your loneliest days, you are deeply loved.",
@@ -738,7 +738,7 @@ function showJarsSection() {
         "You light up my world, even from miles away.",
         "You are my sunshine, even on cloudy days.",
         "Kapag mag-isa ka, isipin mo: may isang taong nagmamahal sa'yo ng sobra.",
-        "Hindi ka nag-iisa, mahal. Yakap mula dito 💗"
+        "Hindi ka nag-iisa, baby. Yakap mula dito 💗"
     ];
 
     const section = document.createElement('div');
